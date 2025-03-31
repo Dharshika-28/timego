@@ -78,6 +78,16 @@ public class PublicController {
         return "redirect:/public/contact";
     }
 
+    @GetMapping("delete1/{feedbackById}")
+	String deletebyid1(@PathVariable("feedbackById") Long id) {
+	
+		FeedbackEntity feedbackEntity = new FeedbackEntity();
+		feedbackEntity.setId(id);
+		feedbackRepository.delete(feedbackEntity);
+	
+		return"redirect:/public/contact";
+	}
+
     @GetMapping("/sponsor")
     public String sponsor(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
