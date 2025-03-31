@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --add-color:#fdfdfd;
+    --text-color:#333;
+    --main-color:#089882;
+    --white-color:#fdfdfd;
+    --shadow-color:rgba(0,0,0.2);
+}
+
+body{
+    background-color: var(--add-color);
+    color: var(--text-color);
+}
+
+/* NavBar styles */
+.header{
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0.5em;
+    width: 100vw;
+    background-color: var(--main-color);
+    color: var(--text-color);
+    position: sticky;
+    font-family: 'Poppins',sans-serif;
+
+}
+.logo{
+    margin-left: 1.5em;
+    color: var(--add-color);
+}
+.navbar{
+    margin-left: 45vw;
+}
+.navbar ul{
+    list-style-type: none;  
+    margin-top: 0.5em;
+}
+
+.navbar ul li {
+    display: inline;
+    padding: 1em;
+    font-weight: 500;
+    font-size: 1em;
+}
+.navbar ul li a{
+    color: var(--add-color);
+}
+.navbar ul li a:hover{
+    color: var(--text-color);
+}
+
+ /* History of Booking slot */
+ .head{
+    background-color: #089882;
+    font-size: 60px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    height: 350px;
+    padding-top: 60px;
+    margin-top: 1.5em;
+}
+.head p{
+    font-size: 30px;
+    color: #0a0dcc;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-left: 120px;
+}
+
+.card{
+    margin: 5em;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+    box-shadow: 0 18px 20px 0 rgb(66, 58, 58) ;
+    text-overflow: hidden;
+}
+
+.content p{
+    text-align: left;
+    padding: 15px;
+    font-size:15px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #04bc7f;
+}
+
+.btns{
+    margin: 4%;
+	margin-left:8em;
+}
+.btns a{
+    padding: 5px;
+    width: 10px;
+    height: 15px;
+	color:blue;
+    border-radius: 40px;
+    cursor: pointer;
+    border: 1px solid #04bc7f;
+    background: transparent;
+    transition: .5s ease;
+}
+
+.btns a:hover{
+    background: #089882;
+	color:black;
+    text-shadow: 0 0 5px #ffffff,0 0 10px #ffffff,0 0 20px #ffffff;
+    box-shadow: 0 0 5px  #089882,0 0 20px  #089882,0 0 50px  #089882,0 0 100px  #089882;
+  }
+
+ .content{
+	margin-top:2em;
+ }
+.content span{
+	color:black
+}
+  
+/* Footer */
+.footer {
+    width: 100vw;
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}  
+.footer-bottom {
+    background-color: #222;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
+.footer-bottom p {
+    margin: 0;
+}
+  

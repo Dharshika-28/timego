@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Portal</title>
+    <style>
+        body {
+            background-color: #f0f5ff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            background: #002855;
+            padding-top: 20px;
+        }
+        .sidebar h4 {
+            color: #ffffff;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ffffff;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background: #0056b3;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .dashboard-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 40, 85, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #002855;
+            color: white;
+        }
+        .btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #003f80;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .chart-box {
+            width: 30%;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 40, 85, 0.2);
+            text-align: center;
+        }
+		
+		.section{
+			margin-left:20%;
+			margin-right:5%;
+			margin-bottom:10%
+		}
+		.section h2{
+			padding-top:5em;
+		}
+		
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4>Admin Portal</h4>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="#booking">Manage Bookings</a>
+        <a href="#tickets">Manage tickets</a>
+        <a href="#sponsors">Manage sponsors</a>
+        <a href="#payments">Manage payment</a>
+        <a href="#users">Manage users</a>
+		<a href="#feedback">Manage Feedback</a>
+		<span sec:authorize="isAuthenticated">
+		        <a th:href="@{/logout}">Logout</a>
+	     </span>
+    </div>
+    
+    <div class="content">
+        <h2>Admin Dashboard</h2>
+        
+        <div class="dashboard-card">
+            <h4>Event Registrations</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Registered Users</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Music Festival</td>
+                        <td>150</td>
+                        <td><a class="btn" href="#">View</a></td>
+                    </tr>
+                    <tr>
+                        <td>Tech Conference</td>
+                        <td>200</td>
+                        <td><a class="btn" href="#">View</a></td>
+                    </tr>
+                    <tr>
+                        <td>Art Exhibition</td>
+                        <td>80</td>
+                        <td><a class="btn" href="#">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-box">
+                <h5>Events Booked</h5>
+                <div>50 Completed / 20 Pending</div>
+            </div>
+            <div class="chart-box">
+                <h5>Sponsors</h5>
+                <div>30 Active / 10 Pending</div>
+            </div>
+            <div class="chart-box">
+                <h5>Tickets Sold</h5>
+                <div>80 Sold / 20 Available</div>
+            </div>
+        </div>
+    </div>
+	
+
+	      <div id="sponsors" class="section">
+	            <h2>Booking:   Sponsorship</h2><span id="Booking"></span>
+	            <div class="container">
+	                <div class="card" th:each="sponsors:${adminsponsorlist}">
+	                    <div class="btns">
+	                        <a th:href="@{/public/delete2/{id}(id=${sponsors.id})}">
+	                            Cancel
+	                        </a>
+	                    </div>
+	                    <div class="content">
+	                        <p><strong>Company Name:</strong> <span th:text="${sponsors.companyName}"></span></p>
+	                        <p><strong>Company Email Address:</strong> <span th:text="${sponsors.companyEmail}"></span></p>
+	                        <p><strong>Sponsorship Amount:</strong> <span th:text="${sponsors.sponsorshipAmount}"></span></p>
+	                        <p><strong>Review</strong> <span th:text="${sponsors.message}"></span></p>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="booking" class="section">
+	            <h2>Booking:   Bookig Service</h2><span id="Booking"></span>
+	            <div class="container">
+	                <div class="card" th:each="booking:${adminbookinglist}">
+	                    <div class="btns">
+	                        <a th:href="@{/public/delete3/{id}(id=${booking.id})}">
+	                            Cancel
+	                        </a>
+	                    </div>
+	                    <div class="content">
+	                      <form action="#">
+	                        <p><strong>Email Address:</strong> <span th:text="${booking.bookingEmail}"></span></p>
+	                        <p><strong>Booking Events Name:</strong> <span th:text="${booking.eventSelect}"></span></p>
+	                        <p><strong>Budget:</strong> <span th:text="${booking.budget}"></span></p>
+	                        <p><strong>From Date:</strong> <span th:text="${booking.fromDate}"></span></p>
+	                        <p><strong>To Date:</strong> <span th:text="${booking.toDate}"></span></p>
+	                        <p><strong>Time:</strong> <span th:text="${booking.time}"></span></p>
+	                        <p><strong>Expectation:</strong> <span th:text="${booking.expectation}"></span></p>               
+	                      </form>
+	                    </div>                        
+	                </div>
+	            </div>
+	        </div>
+			<div class="section" id="tickets">
+				<div class="dashboard-card">
+			          <h3>Manage Tickets</h3>
+			          <table class="table">
+			              <thead>
+			                  <tr>
+			                      <th>Event Name</th>
+			                      <th>Amount</th>
+			                      <th>Actions</th>
+			                  </tr>
+			              </thead>
+			              <tbody>
+			                  <tr>
+			                      <td>A.R. Rahman</td>
+			                      <td>450.00</td>
+			                      <td><a class="btn" href="#">View</a></td>
+			                  </tr>
+			                  <tr>
+			                      <td>DJ Alex party</td>
+			                      <td>200.00</td>
+			                      <td><a class="btn" href="#">View</a></td>
+			                  </tr>
+			                  <tr>
+			                      <td>BTS Concert</td>
+			                      <td>725.00</td>
+			                      <td><a class="btn" href="#">View</a></td>
+			                  </tr>
+			              </tbody>
+			          </table>
+					  <br>
+					  <br>
+					  <br>
+					  <table class="table">
+					 <thead>
+					 <tr>
+					  	<th>Event Name</th>
+					  	<th>Amount</th>
+					  	<th>Actions</th>
+					  	 </tr>
+					 </thead>
+					 <tbody>
+					 <tr>
+						 <td>Expo's </td>
+						 <td>350.00</td>
+						 <td><a class="btn" href="#">View</a></td>
+				     </tr>
+					 <tr>
+						 <td>Mini Concert Arrangement</td>
+					     <td>8000.00</td>
+						 <td><a class="btn" href="#">View</a></td>
+					</tr>
+				    <tr>
+						 <td>Gathering Parties</td>
+						 <td>285.00</td>
+						 <td><a class="btn" href="#">View</a></td>
+					</tr>
+					<tr>
+			            <td>Proposal and Marraige Decoration</td>
+						<td>725.00</td>
+						<td><a class="btn" href="#">View</a></td>
+				    </tr>
+					</tbody>
+					</table>					  
+			      </div>
+			</div>
+	        <div id="payments" class="section">
+	            <h2>Payments</h2>
+	            <table class="table">
+	                <thead>
+	                    <tr><th>Transaction ID</th>
+							<th>Amount</th>
+							<th>Date</th>
+							<th>Email/Company Details</th>
+							<th>Contact Info</th>
+							<th>Actions</th>
+						</tr>
+	                </thead>
+	                <tbody>
+	                    <tr th:each="contactpay : ${contactpaylist}">
+							<td th:text="${contactpay.paymentMode}"></td>
+							<td th:text="${contactpay.amount}"></td>
+							<td th:text="${contactpay.paymentDate}"></td>
+							<td th:text="${contactpay.fullName}"></td>
+							<td th:text="${contactpay.phoneNumber}"></td>
+							<td><a class="btn" th:href="@{/admin/deletecontactpay/{id}(id=${contactpay.id})}">Resend</a></td>
+						</tr>	                
+	                </tbody>
+	            </table>
+				<br>
+				<br>
+				<br>
+				<table class="table">
+				    <thead>
+				        <tr><th>Transaction ID</th>
+							<th>Amount</th>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Contact Info</th>
+							<th>Actions</th>
+						</tr>
+				    </thead>
+				    <tbody>
+				        <tr th:each="payment : ${paymentlist}">
+							<td th:text="${payment.paymentMode}"></td>
+							<td th:text="${payment.amount}"></td>
+							<td th:text="${payment.paymentDate}"></td>
+							<td th:text="${payment.fullName}"></td>
+							<td th:text="${payment.phoneNumber}"></td>
+							<td><a class="btn" th:href="@{/admin/deletepayment/{id}(id=${payment.id})}">Resend</a></td>
+						</tr>
+				    </tbody>
+				</table>
+	        </div>
+	        
+			<div id="users" class="section">
+			            <h2>Manage Users</h2>
+			            <table class="table">
+			                <thead>
+			                    <tr>
+			                        <th>Username</th>
+			                        <th>Email</th>
+			                        <th>Role</th>
+			                        <th colspan="2">Actions</th>
+			                    </tr>
+			                </thead>
+							<tbody>
+								    <tr th:each="user : ${userslist}">
+								        <td th:text="${user.username}"></td>
+								        <td th:text="${user.email}"></td>
+								        <td th:text="${user.role}"></td>
+								        <td><a class="btn" th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a></td>
+										<td><a class="btn" th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a></td>
+								    </tr>
+							</tbody>
+			            </table>
+			        </div>	        
+					
+					<div id="feedback" class="section">
+						 <h2>Manage FeedBack</h2>
+							<table class="table">
+								<thead>
+								   <tr>
+								    <th>Username</th>
+								        <th>Email</th>
+								        <th>Role</th>
+								        <th colspan="2">Actions</th>
+								        </tr>
+								        </thead>
+										<tbody>
+										<tr th:each="feedback : ${feedbacklist}">
+											    <td th:text="${feedback.username}"></td>
+												<td th:text="${feedback.emailId}"></td>
+												<td th:text="${feedback.review}"></td>
+												<td><a class="btn">view</a></td>
+												<td><a class="btn" th:href="@{/public/delete1/{id}(id=${feedback.id})}">Delete</a></td>
+										</tr>
+												</tbody>
+								            </table>
+								        </div>	     					
+					
+			<div id="reports" class="section">
+	            <h2>Reports</h2>
+	            <p>Report content goes here...</p>
+	        </div>
+
+	
+</body>
+</html>

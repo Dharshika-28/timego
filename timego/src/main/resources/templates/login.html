@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timego</title>
+    <!-- Css  -->
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="#" class="logo"><h1>TimeGo</h1></a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="public/home">Home</a></li>
+                    <li><a href="public/about">AboutUs</a></li>
+                    <li><a href="public/event">Events</a></li>
+                    <li><a href="public/bookedshows">Booked Shows</a></li>
+                    <li><a href="public/contact">ContactUs</a></li>
+					<li><details>
+						<summary id="summary"><a href="public/login" id="in-out">login</a></summary>	
+						<span sec:authorize="isAuthenticated">
+						        <a th:href="@{/logout}">Logout</a>
+						    </span>	  
+						</details>	
+					</li>                
+				</ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+
+        <div class="login-container"  id="login-container" style="display:block;">
+            <div class="login">
+            <div class="login-image1">
+                <h1>Hi! I'm <a href="#signin-container" id="login" style="color:#e10f0f;" >Login</a></h1>
+                <img src="/images/login1.jfif" alt="" >
+            </div>
+            <div class="login-image2">
+                <h1>Hi! I'm <a href="#signup-container" id="signup" style="color:#e10f0f;">SignUp</a></h1>
+                <img src="/images/login2.jfif" alt="" >
+            </div>
+            </div>  
+        </div>
+
+
+
+        <div class="signin" id="signin-container" style="display: none;padding-top: 1em;">
+        <div class="container">
+            <div class="container-pop">
+                <div class="login-image1">
+                    <img src="/images/l3.jpg" alt="" >
+                </div>
+            </div>
+            <div class="drop">
+                <div class="content">
+                    <h2>Sign in</h2>
+                    <form th:action="@{/login}" method="post">
+                        <div class="inputBox">
+                            <input type="text" id="username" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="inputBox">
+                            <input type="text" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Login">
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+            <a href="#" class="btns" id="openModalBtn">Forget Password</a>
+            <a href="#signup-container" id="signup_again" class="btns signup">Sign Up</a>
+        </div>
+    </div>
+
+
+    <div class="signup" id="signup-container" style="display: none;">
+        <div class="Signup-container">            
+            <div class="drop">
+                <div class="content">
+                        <h2>Create Account</h2>
+				 <form th:action="@{/registeration}" method="post" th:object="${user}">
+                        <div class="inputBox">
+                            <input type="text" placeholder="Username" id="username" name="username" th:field="*{username}"  required>
+                        </div>
+                        <div class="inputBox">
+                            <input type="email" placeholder="Email" id="email" name="email" th:field="*{email}" required>
+                        </div>
+                        <div class="inputBox">
+                            <input type="password" placeholder="Password" id="password" name="password" th:field="*{password}"  required>
+                        </div>
+                        <div class="inputBox">
+							<select id="role" name="role" th:field="*{role}" >
+							  <option value="USER">USER</option>
+							  <option value="ADMIN">ADMIN</option>
+							</select>                     
+					   </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Sign Up">                        
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+            <a href="#signin-container" id="login_again" class="action-button">Already have an account? Login</a>
+
+            <div class="container-pop">
+                <div class="login-image2" >
+                    <img src="/images/l2.jpg" alt="" >
+                </div>
+            </div>
+        </div> 
+     </div>
+
+  <!-- Modal-forget password -->
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="closeModalBtn" class="close-btn">&times;</span>
+      <div class="input-Box">
+        <input type="text" placeholder="Username" required>
+        </div>
+        <div class="input-Box">
+            <input type="text" placeholder="New Password" required>
+        </div>
+        <div class="input-Box">
+            <input type="text" placeholder="Re-enter new Password" required>
+        </div>
+        <div class="input-Box">
+            <button id="generate">Generate</button>
+            <h1 id="code"></h1>
+            <input type="text" placeholder="Secret-code" required>
+        </div>
+        <div class="input-Box">
+            <input type="submit" id="closeBtn" class="closebtn" value="Login">
+        </div>
+    </div>
+  </div>
+          
+    </main>
+    <footer class="footer" id="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+      </div>
+    </footer>    
+    
+
+    <script src="/js/script.js"></script>
+	
+</body>
+</html>
+

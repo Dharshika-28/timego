@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timego</title>
+    <!-- Css  -->
+    <link rel="stylesheet" href="/css/prebook.css">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="#" class="logo"><h1>TimeGo</h1></a>
+            <nav class="navbar">
+				<ul>
+				    <li><a href="/public/home">Home</a></li>
+				    <li><a href="/public/about">AboutUs</a></li>
+				    <li><a href="/public/event">Events</a></li>
+				    <li><a href="/public/bookedshows">Booked Shows</a></li>
+				    <li><a href="/public/contact">ContactUs</a></li>
+				    <li><a href="/public/login">login</a></li>
+				 </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="heading">
+            <div class="head">
+                <h1>Pre-Booked Details</h1>
+                <p>#CHECK & #CANCEL Your BOOKING</p>
+             </div>
+        </div>
+        <div id="bookingCard1" class="cards">
+            <h2>Your Booking:Sponsorship</h2><span id="Booking"></span>
+            <div class="container">
+                <div class="card" th:each="sponsorsmodel:${sponsorlist}">
+                    <div class="btns">
+                        <a th:href="@{/public/delete2/{id}(id=${sponsorsmodel.id})}">
+                            Cancel
+                        </a>
+						<a href="javascript:void(0);" 
+						   onclick="saveBookingDetails('sponsorship', this)" 
+						   th:attr="data-id=${sponsorsmodel.id}, 
+						            data-type='sponsorship', 
+						            data-name=${sponsorsmodel.companyName}, 
+						            data-amount=${sponsorsmodel.sponsorshipAmount}">
+						   Proceed to Payment
+						</a>
+                    </div>
+                    <div class="content">
+                        <p><strong>Company Name:</strong> <span th:text="${sponsorsmodel.companyName}"></span></p>
+                        <p><strong>Company Email Address:</strong> <span th:text="${sponsorsmodel.companyEmail}"></span></p>
+                        <p><strong>Sponsorship Amount:</strong> <span th:text="${sponsorsmodel.sponsorshipAmount}"></span></p>
+                        <p><strong>Review</strong> <span th:text="${sponsorsmodel.message}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bookingCard2" class="cards">
+            <h2>Your Booking:Booking Service</h2><span id="Booking"></span>
+            <div class="container">
+                <div class="card" th:each="bookingmodel:${bookinglist}">
+                    <div class="btns">
+                        <a th:href="@{/public/delete3/{id}(id=${bookingmodel.id})}">
+                            Cancel
+                        </a>
+						<a href="javascript:void(0);" 
+						   onclick="saveBookingDetails('booking', this)"  
+						   th:attr="data-id=${bookingmodel.id}, 
+						            data-type='booking', 
+						            data-name=${bookingmodel.bookingEmail}, 
+						            data-amount=${bookingmodel.budget}">
+						   Proceed to Payment
+						</a>
+                    </div>
+                    <div class="content">
+                      <form action="#">
+                        <p><strong>Email Address:</strong> <span th:text="${bookingmodel.bookingEmail}"></span></p>
+                        <p><strong>Booking Events Name:</strong> <span th:text="${bookingmodel.eventSelect}"></span></p>
+                        <p><strong>Budget:</strong> <span th:text="${bookingmodel.budget}"></span></p>
+                        <p><strong>From Date:</strong> <span th:text="${bookingmodel.fromDate}"></span></p>
+                        <p><strong>To Date:</strong> <span th:text="${bookingmodel.toDate}"></span></p>
+                        <p><strong>Time:</strong> <span th:text="${bookingmodel.time}"></span></p>
+                        <p><strong>Expectation:</strong> <span th:text="${bookingmodel.expectation}"></span></p>               
+                      </form>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+      </div>
+    </footer>    
+    
+
+    <script src="/js/script.js"></script>
+
+	<script>
+		function saveBookingDetails(type, element) {
+				    const id = element.getAttribute("data-id");
+				    const name = element.getAttribute("data-name");
+				    const amount = element.getAttribute("data-amount");
+
+				    console.log("Saving details:", { type, id, name, amount });
+
+				    // Store data in localStorage
+				    localStorage.setItem("paymentType", type); // Can be 'booking' or 'sponsorship'
+				    localStorage.setItem("paymentId", id);
+				    localStorage.setItem("paymentName", name);
+				    localStorage.setItem("paymentAmount", amount);
+
+				    // Redirect to payment page with parameters
+				    window.location.href = `/user/contactpay?id=${id}&type=${type}&name=${encodeURIComponent(name)}&amount=${amount}`;
+				}
+    </script>
+	
+</body>
+</html>

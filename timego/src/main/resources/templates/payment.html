@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeGo</title>
+    <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="#" class="logo"><h1>TimeGo</h1></a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/public/home">Home</a></li>
+                    <li><a href="/public/about">AboutUs</a></li>
+                    <li><a href="/public/event">Events</a></li>
+                    <li><a href="/public/bookedshows">Booked Shows</a></li>
+                    <li><a href="/public/contact">ContactUs</a></li>
+                    <li><a href="/public/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Payment Form</h2>
+            <form th:action="@{/user/paymentverify}" id="paymentForm" method="post">
+                <label for="paymentMode">Payment Mode:</label>
+                <select id="paymentMode" name="paymentMode" th:value="${paymentById.paymentMode}"  required>
+                    <option value="">Select Payment Mode</option>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="googlePay">Google Pay</option>
+                    <option value="paypal">PayPal</option>
+                </select>
+
+                <div id="cvvField" style="display: none;">
+                    <label for="cvv">CVV (Last Digit):</label>
+					<input type="text" id="cvv" name="cvv" placeholder="Enter CVV" pattern="\d{3}" title="Enter a valid 3-digit CVV" th:value="${paymentById.cvv}" >
+                </div>
+
+                <div id="phoneField" style="display: none;">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" pattern="\d{10}" title="Enter a valid 10-digit phone number" th:value="${paymentById.phoneNumber}" >
+                </div>
+
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" readonly placeholder="Amount will be auto-filled" th:value="${paymentById.amount}" >
+
+                <label for="name">Event Name:</label>
+                <input type="text" id="name" name="fullName" placeholder="Enter your full name" th:value="${paymentById.fullName}"  required>
+
+                <label for="otp">OTP:</label>
+                <input type="number" id="otp" name="otp" placeholder="Enter OTP-123456" th:value="${paymentById.otp}"  required>
+
+                <button type="submit">Submit Payment</button>
+            </form>
+
+            <div id="paymentMessage" class="message"></div>
+
+            <div class="person">
+                <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Person" style="width: 50px; height: 50px; border-radius: 50%;">
+                <div class="speech-bubble">
+                    <p id="speechText" class="typing">Filling the form...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+    <script>
+        document.getElementById("paymentMode").addEventListener("change", function() {
+            document.getElementById("cvvField").style.display = "none";
+            document.getElementById("phoneField").style.display = "none";
+
+            if (this.value === "creditCard") {
+                document.getElementById("cvvField").style.display = "block";
+            } else if (this.value === "googlePay" || this.value === "paypal") {
+                document.getElementById("phoneField").style.display = "block";
+            }
+        });
+
+        document.getElementById("paymentForm").addEventListener("submit", function(event) {
+            const name = document.getElementById("name").value.trim();
+            const paymentMode = document.getElementById("paymentMode").value;
+            const otp = parseInt(document.getElementById("otp").value, 10);
+            const cvvField = document.getElementById("cvv");
+            const phoneField = document.getElementById("phoneNumber");
+
+            let message = "";
+
+            if (name === "" || isNaN(otp) || paymentMode === "") {
+                message = "Please fill in all fields.";
+                document.getElementById("paymentMessage").className = "message error";
+                event.preventDefault(); // Stop form submission
+                return;
+            }
+
+            if (otp !== 123456) {
+                message = "Invalid OTP. Please try again.";
+                document.getElementById("paymentMessage").className = "message error";
+                event.preventDefault(); // Stop form submission
+                return;
+            }
+
+            if (paymentMode === "creditCard" && cvvField && cvvField.value.trim() === "") {
+                message = "Please enter the last digit of your CVV.";
+                document.getElementById("paymentMessage").className = "message error";
+                event.preventDefault();
+                return;
+            }
+
+            if ((paymentMode === "googlePay" || paymentMode === "paypal") && phoneField && phoneField.value.trim().length !== 10) {
+                message = "Please enter a valid 10-digit phone number.";
+                document.getElementById("paymentMessage").className = "message error";
+                event.preventDefault();
+                return;
+            }
+
+            message = `Payment of $${document.getElementById('amount').value} was successful! Thank you, ${name}.`;
+			
+			document.getElementById("speechText").textContent = "Now payment done!";
+			document.getElementById("paymentMessage").textContent = message;
+        });
+
+        window.onload = function() {
+            const eventName = localStorage.getItem('eventName');
+            const eventAmount = localStorage.getItem('eventAmount');
+
+            if (eventName && eventAmount && !isNaN(eventAmount)) {
+                document.getElementById('amount').value = eventAmount; 
+				document.getElementById('name').value = eventName; 
+            }
+        };
+    </script>
+</body>
+</html>

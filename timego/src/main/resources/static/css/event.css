@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --add-color:#fdfdfd;
+    --text-color:#333;
+    --main-color:#0d1270;
+    --white-color:#fdfdfd;
+    --shadow-color:rgba(0,0,0.2);
+    --background-color:rgb(232, 224, 224);
+}
+
+body{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* NavBar styles */
+.header{
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0.5em;
+    width: 100vw;
+    background-color: var(--main-color);
+    color: var(--text-color);
+    position: sticky;
+    font-family: 'Poppins',sans-serif;
+
+}
+.logo{
+    margin-left: 1.5em;
+    color: var(--add-color);
+}
+.navbar{
+    margin-left: 45vw;
+}
+.navbar ul{
+    list-style-type: none;  
+    margin-top: 0.5em;
+}
+
+.navbar ul li {
+    display: inline;
+    padding: 1em;
+    font-weight: 500;
+    font-size: 1em;
+}
+.navbar ul li a{
+    color: var(--add-color);
+}
+.navbar ul li a:hover{
+    color: rgb(179, 168, 168);
+}
+
+/* Announcement */
+.event-container{
+    position: relative;
+}
+.event-announcement{
+    border: 2px solid black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+    color:var(--main-color);
+    margin-top: 2.5em;
+    padding-left: 2em;
+    padding-top: 1.5em;
+    line-height: 80px;
+    font-weight: 500;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;        
+}
+.background{
+    background-image: url('../images/e9.jpg');
+    background-attachment:scroll;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.8;
+}
+.event-announcementimg{
+    float: right;
+}
+.event-announcementimg img{
+    width: 300px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    margin-right: 60px;
+   
+}
+.event-announcement h1,h3,h4,.event-announcementimg{
+    animation: fade 2s ease-out infinite;
+    animation-duration: 5s;
+    opacity: 0;
+}
+@keyframes fade {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.event-announcement h1{
+    color: var(--shadow-color);
+}
+
+/* Container for the cards */
+.container{
+    margin-top: 10%;
+}
+.cards-wrapper {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.event-card {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    margin: 20px;
+}
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+.event-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+.card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);
+    backface-visibility: hidden;
+    padding: 20px;
+    transform: rotateY(180deg); 
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-title {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+.card-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+.card-price {
+    font-size: 1.2rem;
+    color: #76f794;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.card-btn {
+    text-decoration: none;
+    background-color: #ff9500;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.card-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); 
+}
+.event-card:hover .card-title {
+    color: #38cee6; 
+}
+.event-card:hover .card-description {
+    color: var(--add-color);
+}
+.heading{
+    margin: 2em;
+    font-weight: 700;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+  
+/* Footer */
+.footer {
+    width: 100vw;
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}  
+.footer-bottom {
+    background-color: #222;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
+.footer-bottom p {
+    margin: 0;
+}
+  

@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --add-color:#fdfdfd;
+    --text-color:#333;
+    --main-color:#af0d79;
+    --white-color:#fdfdfd;
+    --shadow-color:rgba(0,0,0.2);
+}
+
+body{
+    background-color: var(--add-color);
+    color: var(--text-color);
+}
+
+
+/* NavBar styles */
+.header{
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0.5em;
+    width: 100vw;
+    background-color: var(--main-color);
+    color: var(--text-color);
+    position: sticky;
+    font-family: 'Poppins',sans-serif;
+
+}
+.logo{
+    margin-left: 1.5em;
+    color: var(--add-color);
+}
+.navbar{
+    margin-left: 45vw;
+}
+.navbar ul{
+    list-style-type: none;  
+    margin-top: 0.5em;
+}
+
+.navbar ul li {
+    display: inline;
+    padding: 1em;
+    font-weight: 500;
+    font-size: 1em;
+}
+.navbar ul li a{
+    color: var(--add-color);
+}
+.navbar ul li a:hover{
+    color: var(--text-color);
+}
+
+
+/* Container-part1 */
+.home-container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+.home-image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.home-content{
+    position: absolute;
+    top: 0em;
+    left: 0rem;
+    width: 100%;
+    height: 100%;
+    padding-top: 18em;
+    padding-right: 35em;
+    color: var(--add-color);
+    text-shadow: var(--text-color);
+    text-align: center;
+    line-height: 35px;
+    font-weight: 200;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    opacity: 0;
+    cursor:default;  
+    animation: fadeIn 5s ease-out infinite;
+    animation-delay: 10;
+}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+
+/* Container-part2 */
+.home-features{
+    margin-bottom: 5em;
+    width: 100vw;
+}
+.home-part1{
+    font-weight: 600;
+    font-size: 1em;
+    text-align: center;
+    padding: 2em;
+    margin-top: 5em;
+    margin-right: 8em;
+    margin-left: 8em;
+    color:var(--add-color);
+    background-color: rgb(7, 7, 67);
+    border: 2px solid rgba(27, 7, 7,0.7);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
+}
+.home-part2{
+    display: flex;
+    margin-left: 5em;
+    margin-right: 3.5em;
+    margin-top: 5em;
+}
+.home-part2 img{
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 50%;
+}
+.home-part3{
+    margin-top: 2.5em;
+    font-size: 30px;
+    font-family: 'Poppins',sans-serif;
+}
+.home-part3 h1{
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    margin-bottom: 2em;
+    color: rgb(6, 58, 58);    
+    opacity: 0;
+}
+
+.home-part3 h1:hover{
+    animation: fade 2s ease-out forwards;
+    animation-delay: 2ms;
+}
+@keyframes fade {
+0% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+}
+
+
+/* Container-part3 */
+.sponsor{
+    margin-top: 150px;
+    width: 100vw;
+}
+.sponsor-content{
+    margin: 3em;
+    text-align: center;
+    color: var(--main-color);
+    font-size: 1.2em;
+    line-height: 2.2em;
+}
+.sub-content{
+    margin-left: 2.5em;
+    margin-bottom: 2.5em;
+}
+.sponsor-list{
+    margin-left:10% ;
+    width:80vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:30px;
+}
+.sponsor-list img{
+    margin-bottom:30px ;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;   
+    transition: 1s ease-out;
+ 
+}
+.sponsor-list img:hover{
+    height: 220px;
+    width: 220px;
+}
+
+/* Container-part4 */
+
+.Collaboration{
+    width: 100vw;
+    background-color: #c90b6a;
+    padding: 10px;
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: x-large;
+    margin-top: 10%;
+    height: 500px;
+}
+.Collaboration h1{
+    color: rgb(233, 233, 241);
+    text-align: left;
+    margin-top: 5%;
+    font-size: 80px;
+}
+.Collaboration p{
+    color:black;
+    font-weight: 400;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: left;
+    background-color:white;
+    width: 350px;
+    padding: 15px;
+    margin-top: 3%;
+}
+  
+.Collaboration button{
+    width: 150px;
+    height: 60px;
+    background-color: #010c13;
+    border-radius: 50%;
+    border: 5px ridge rgb(58, 32, 136);
+}
+.Collaboration button a{
+    text-decoration: none;
+    padding: 2px;
+    color: #1271b1;
+      
+}
+  
+  
+/* Footer */
+.footer {
+    width: 100vw;
+    background: linear-gradient(to right, #ff7f50, #ff5722); /* Motivational gradient background */
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}  
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-quote {
+    flex: 2;
+    margin: 10px;
+    font-style: italic;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); 
+    border-radius: 8px;
+}
+.footer-quote blockquote {
+    font-size: 1.5rem;
+    margin: 0;
+}
+.footer-quote p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+.footer-links, .footer-contact, .footer-callus {
+    flex: 1;
+    margin: 10px;
+    min-width: 220px;
+}
+.footer-links ul, .footer-contact ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-links li, .footer-contact li {
+    margin-bottom: 10px;
+  }
+.footer-links a, .footer-contact a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.footer-callus {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.footer-callus {
+    background-color: #032e4a;
+    font-size: 1.5rem;
+}
+.footer-callus p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+.callus-button {
+    background-color: #370d80;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  } 
+.callus-button:hover {
+    background-color: #ff5722;
+}
+.footer-bottom {
+    background-color: #222;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
+.footer-bottom p {
+    margin: 0;
+}
+  

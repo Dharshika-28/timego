@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timego</title>
+    <!-- Css  -->
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+		*{
+		    margin: 0;
+		    padding: 0;
+		    box-sizing: border-box;
+		    text-decoration: none;
+		    border: none;
+		    outline: none;
+		    scroll-behavior: smooth;
+		}
+
+		:root{
+		    --add-color:#f9f7f9;
+		    --text-color:#333;
+		    --main-color:#cf2547;
+		    --white-color:#fdfdfd;
+		    --shadow-color:rgba(0,0,0.2);
+		    --background-color:rgb(235, 168, 184);
+		}
+
+		body{
+		    background-image: url(/images/l1.jpg);
+		    color: var(--text-color);
+		    background-repeat: no-repeat;
+		    background-size: 120% 100%;
+
+		}
+
+		/* NavBar styles */
+		.header{
+		    display: flex;
+		    flex-wrap: nowrap;
+		    margin: 0;
+		    padding: 0.5em;
+		    width: 100vw;
+		    background-color: var(--main-color);
+		    color: var(--text-color);
+		    position: sticky;
+		    font-family: 'Poppins',sans-serif;
+
+		}
+		.logo{
+		    margin-left: 1.5em;
+		    color: var(--add-color);
+		}
+		.navbar{
+		    margin-left: 45vw;
+		}
+		.navbar ul{
+		    list-style-type: none;  
+		    margin-top: 0.5em;
+		}
+
+		.navbar ul li {
+		    display: inline;
+		    padding: 1em;
+		    font-weight: 500;
+		    font-size: 1em;
+		}
+		.navbar ul li a{
+		    color: var(--add-color);
+		}
+		.navbar ul li a:hover{
+		    color: var(--text-color);
+		}
+
+
+		/* Contact forms */
+		.container2 {
+		    margin-left: 1em;
+		    margin-right: 16em;
+		    margin-top: 4em;    
+		    line-height: 1em;
+		    background-color: transparent;
+		    font-size: 18px;
+		    padding: 10px;
+		    font-family: 'Poppins',sans-serif;
+		    color: #ebe5e6;
+		    text-shadow: 2px 1px var(--text-color);
+		}
+
+		.nav-tabs {
+		    list-style: none;
+		    padding: 0;
+		    display: flex;
+		    margin-left: 300px;
+		    text-align: center;
+		    align-items: center;
+		    font-family: 'Poppins',sans-serif;
+		}
+
+		.nav-item {
+		    margin-right: 10px;
+		    height: 100px;
+		    width: 100px;
+		}
+
+		.nav-link {
+		    padding: 10px 20px;
+		    border-radius: 30px;
+		    border: 1px solid #ccc;
+		    cursor: pointer;
+		    background-color: #ed85ae;
+		    font-weight: bold;
+			color:white;
+		}
+
+		.tab-content {
+		    margin: 20px 0;
+		}
+		.tab-content h2{
+		    font-size: 40px;
+		    margin: .8em;
+		    line-height: .8em;
+		}
+
+
+		.form-group {
+		    margin-bottom: 15px;
+		}
+
+		.form-control {
+		    width: 100%;
+		    padding: 8px;
+		    margin-top: 5px;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		}
+
+		.form-select {
+		    width: 100%;
+		    padding: 8px;
+		    margin-top: 5px;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		}
+
+		.btn {
+		    padding: 10px 20px;
+		    border: none;
+		    background-color: #007bff;
+		    color: white;
+		    cursor: pointer;
+		    border-radius: 4px;
+		}
+
+		.btn-primary {
+		    background-color: #007bff;
+		}
+
+
+		  
+		/* Footer */
+		.footer {
+		    width: 100vw;
+		    color: #fff;
+		    padding: 50px 0;
+		    text-align: center;
+		    font-family: 'Poppins', sans-serif;
+		}  
+		.footer-bottom {
+		    background-color: #222;
+		    padding: 10px 0;
+		    font-size: 0.9rem;
+		}
+		.footer-bottom p {
+		    margin: 0;
+		}
+		  
+	</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="#" class="logo"><h1>TimeGo</h1></a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="about">AboutUs</a></li>
+                    <li><a href="event">Events</a></li>
+                    <li><a href="bookedshows">Booked Shows</a></li>
+                    <li><a href="contact">ContactUs</a></li>
+                    <li><a href="login">login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container2">
+            <div class="tab-content">             
+                <!-- Booking service Form -->
+                <div class="tab-pane" id="completedtask">
+                    <div class="container mb-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 bg-white p-3">
+                                <h2>Booking service Form</h2>
+								<form th:action="@{/public/bookingverify}" method="post">
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input class="form-control" type="email" id="bookingEmail" name="bookingEmail"  th:value="${bookingById.bookingEmail}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="eventSelect">Booking Events Name</label>
+                                        <select class="form-select" id="eventSelect" name="eventSelect" th:value="${bookingById.eventSelect}">
+                                            <option selected disabled>select-a-event_name</option>
+                                            <option value="conference">Conference management</option>
+                                            <option value="techExposition">Technology exposition</option>
+                                            <option value="droneExposition">Drone exposition</option>
+                                            <option value="party">Reunion or Gathering party</option>
+                                            <option value="ceremony">Opening Ceremony</option>
+                                            <option value="worldTour">World Tour event</option>
+                                            <option value="birthday">Birthday party</option>
+                                            <option value="dancing">Dancing event</option>
+                                            <option value="proposal">Proposal event</option>
+                                            <option value="weddingDecoration">Wedding decoration</option>
+                                            <option value="weddingManagement">Wedding management</option>
+                                            <option value="musicConcert">Music concert</option>
+                                            <option value="nightParty">Night party</option>
+                                            <option value="productLaunch">Product launch</option>
+                                            <option value="awardCeremony">Award ceremonies</option>
+                                            <option value="mice">Mice</option>
+                                            <option value="virtualEvent">Virtual event</option>
+                                            <option value="exhibition">Exhibition & Trade fair</option>
+                                            <option value="others">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="budget">Budget</label>
+                                        <input class="form-control" type="number" id="budget" name="budget" th:value="${bookingById.budget}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fromDate">From Date</label>
+                                        <input class="form-control" type="date" id="fromDate" name="fromDate" th:value="${bookingById.fromDate}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="toDate">To Date</label>
+                                        <input class="form-control" type="date" id="toDate" name="toDate" th:value="${bookingById.toDate}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time">Time</label>
+                                        <input class="form-control" type="time" id="time" name="time" th:value="${bookingById.time}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expectation">Expectation</label>
+                                        <textarea class="form-control" id="expectation" name="expectation" th:value="${bookingById.expectation}" cols="30" rows="10" style="height: 150px"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary my-2">Book Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+        </div>
+    </footer>    
+
+    <script src="/js/script.js"></script>
+    
+</body>
+</html>

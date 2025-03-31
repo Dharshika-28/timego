@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timego</title>
+    <!-- Css  -->
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <a href="#" class="logo"><h1>TimeGo</h1></a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="about">AboutUs</a></li>
+                    <li><a href="event">Events</a></li>
+                    <li><a href="bookedshows">Booked Shows</a></li>
+                    <li><a href="contact">ContactUs</a></li>
+                    <li><a href="login">login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container2">
+            <div>
+                <ul class="nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link">Feedback / Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="sponsor" class="nav-link">Sponsors Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="booking" class="nav-link">Booking service</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <!-- Feedback / Reviews Form -->
+                <div class="tab-pane active" id="alltask">
+                    <div class="container mb-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 bg-white p-3">
+                                <h2> Feedback / Reviews</h2>
+                               <form th:action="@{/public/feedback}" method="post">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input class="form-control" type="text" id="username" name="username" th:value="${feedbackById.username}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input class="form-control" type="email" id="email" name="emailId" th:value="${feedbackById.emailId}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Review">Review</label>
+                                        <textarea class="form-control" id="Review" name="review" th:value="${feedbackById.review}" cols="30" rows="10" style="height: 150px"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary my-2" onclick="storeFeedbackData()">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+        </div>
+    </footer>    
+
+    <script src="/js/script.js"></script>
+        
+</body>
+</html>

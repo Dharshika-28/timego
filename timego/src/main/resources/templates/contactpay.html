@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeGo</title>
+    <link rel="stylesheet" href="/css/contactpay.css" />
+
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <a href="#" class="logo"><h1>TimeGo</h1></a>
+        <nav class="navbar">
+          <ul>
+            <ul>
+                <li><a href="/public/home">Home</a></li>
+                <li><a href="/public/about">AboutUs</a></li>
+                <li><a href="/public/event">Events</a></li>
+                <li><a href="/public/bookedshows">Booked Shows</a></li>
+                <li><a href="/public/contact">ContactUs</a></li>
+                <li><a href="/public/login">login</a></li>
+              </ul>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <h2>Payment Form</h2>
+		<form th:action="@{/user/contactpayverify}" id="paymentForm" method="post">
+          <label for="paymentMode">Payment Mode:</label>
+          <select id="paymentMode" name="paymentMode">
+            <option value="">Select Payment Mode</option>
+            <option value="creditCard">Credit Card</option>
+            <option value="googlePay">Google Pay</option>
+            <option value="paypal">PayPal</option>
+          </select>
+
+          <div id="cvvField" style="display: none;">
+            <label for="cvv">CVV (Last Digit):</label>
+			<input type="text" id="cvv" name="cvv" placeholder="Enter CVV" pattern="\d{3}" title="Enter a valid 3-digit CVV">
+          </div>
+
+          <div id="phoneField" style="display: none;">
+            <label for="phoneNumber">Phone Number:</label>
+			<input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" pattern="\d{10}" title="Enter a valid 10-digit phone number">
+          </div>
+
+		  <label for="name">Full Name:</label>
+		  <input type="text" id="name" name="fullName" placeholder="Enter your full name" required>
+		  
+		  <label for="amount">Amount:</label>
+		  <input type="number" id="amount" name="amount" readonly placeholder="Amount will be auto-filled">
+		  
+		  
+		  <label for="otp">OTP:</label>
+		  <input type="number" id="otp" name="otp" placeholder="Enter OTP-123456" required>
+
+          <button type="submit">Submit Payment</button>
+        </form>
+
+        <div id="paymentMessage" class="message"></div>
+
+        <div class="person">
+          <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Person" style="width: 50px; height: 50px; border-radius: 50%;"/>
+          <div class="speech-bubble">
+            <p id="speechText" class="typing">Filling the form...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2025 TimeGo Company. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+	<script>
+	    document.addEventListener("DOMContentLoaded", function () {
+	        console.log("DOM fully loaded and script running...");
+
+	        // Function to get payment details from localStorage and populate form fields
+	        function getPaymentDetails() {
+	            const paymentType = localStorage.getItem("paymentType");
+	            const paymentId = localStorage.getItem("paymentId");
+	            const paymentName = localStorage.getItem("paymentName");
+	            const paymentAmount = localStorage.getItem("paymentAmount");
+
+	            console.log("Retrieved Payment Details:", { paymentType, paymentId, paymentName, paymentAmount });
+
+	            // Populate form fields if values exist
+	            if (paymentName) document.getElementById("name").value = paymentName;
+	            if (paymentAmount) document.getElementById("amount").value = paymentAmount;
+	        }
+
+	        // Call the getPaymentDetails function once the DOM is fully loaded
+	        getPaymentDetails();
+
+	        // Payment Mode Change Event
+	        document.getElementById("paymentMode").addEventListener("change", function () {
+	            document.getElementById("cvvField").style.display = "none";
+	            document.getElementById("phoneField").style.display = "none";
+
+	            if (this.value === "creditCard") {
+	                document.getElementById("cvvField").style.display = "block";
+	            } else if (this.value === "googlePay" || this.value === "paypal") {
+	                document.getElementById("phoneField").style.display = "block";
+	            }
+	        });
+
+	        // Form Validation
+	        document.getElementById("paymentForm").addEventListener("submit", function (event) {
+	            const name = document.getElementById("name").value.trim();
+	            const paymentMode = document.getElementById("paymentMode").value;
+	            const otp = document.getElementById("otp").value.trim();
+	            const cvvField = document.getElementById("cvv");
+	            const phoneField = document.getElementById("phoneNumber");
+	            const amount = document.getElementById("amount").value.trim();
+	            let message = "";
+
+	            // Check for required fields
+	            if (name === "" || otp === "" || paymentMode === "") {
+	                message = "Please fill in all fields.";
+	                document.getElementById("paymentMessage").className = "message error";
+	                document.getElementById("paymentMessage").textContent = message;
+	                event.preventDefault();  // Prevent form submission
+	                return;
+	            }
+
+	            // OTP validation
+	            if (otp !== "123456") {
+	                message = "Invalid OTP. Please try again.";
+	                document.getElementById("paymentMessage").className = "message error";
+	                document.getElementById("paymentMessage").textContent = message;
+	                event.preventDefault();  // Prevent form submission
+	                return;
+	            }
+
+	            // CVV validation for credit card
+	            if (paymentMode === "creditCard" && (cvvField.value.trim().length !== 3 || isNaN(cvvField.value))) {
+	                message = "Please enter a valid 3-digit CVV.";
+	                document.getElementById("paymentMessage").className = "message error";
+	                document.getElementById("paymentMessage").textContent = message;
+	                event.preventDefault();  // Prevent form submission
+	                return;
+	            }
+
+	            // Phone number validation for Google Pay/PayPal
+	            if ((paymentMode === "googlePay" || paymentMode === "paypal") && (phoneField.value.trim().length !== 10 || isNaN(phoneField.value))) {
+	                message = "Please enter a valid 10-digit phone number.";
+	                document.getElementById("paymentMessage").className = "message error";
+	                document.getElementById("paymentMessage").textContent = message;
+	                event.preventDefault();  // Prevent form submission
+	                return;
+	            }
+
+	            // If all validation is successful
+	            message = `Payment of ${amount} was successful! Thank you, ${name}.`;
+	            document.getElementById("speechText").textContent = "Now payment done!";
+	            document.getElementById("paymentMessage").className = "message success";
+	            document.getElementById("paymentMessage").textContent = message;
+	        });
+	    });
+	</script>
+
+
+
+
+  </body>
+</html>
